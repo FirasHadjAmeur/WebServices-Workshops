@@ -4,6 +4,7 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -47,7 +48,7 @@ public class RendezVousResources {
 	}
 	
 	@GET
-	@Produces(MediaType.APPLICATION_XML)
+	@Produces(MediaType.APPLICATION_JSON)
 	@Path("query")
 	public Response getRDVbyLogREF(@QueryParam(value="refLogement") int refLogement) {
 		for(RendezVous r:RB.listeRendezVous){
@@ -68,6 +69,7 @@ public class RendezVousResources {
 			}
 		return Response.status(Status.NOT_FOUND).entity("Echec").build();	
 	}
+	
 	@DELETE
 	@Path("{id}")
 	public Response deleteRDV(@PathParam(value="id") int id ) {
@@ -79,7 +81,19 @@ public class RendezVousResources {
 	}
 	
 	@PUT
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Path("update/{id}")
+	public Response updateRDV(@PathParam(value="id") int id ,RendezVous R) {
+		RendezVous r = RB.getRendezVousById(id);
+			if(r.getId()!=-1) {
+				RB.updateRendezVous(id, r);
+			return Response.status(Status.OK).entity("UPDATE_SUCCESSFUL").build();
+			}
+		return Response.status(Status.NOT_FOUND).entity("NOT_FOUND").build();
+		}
+	}
+
+
+
 	
 	
-	
-}
