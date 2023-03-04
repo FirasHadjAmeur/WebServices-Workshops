@@ -1,0 +1,26 @@
+type Student
+{
+
+cin:String
+nompre:String
+email:String
+
+}
+
+type Query
+{
+getAllStudents:[Student]
+getStudentByCin(cin:String):Student
+}
+
+type Mutation
+{
+addStudent(cin:String,nompre:String,email:String):Student
+updateStudent(cin:String,nompre:String,email:String):Student
+deleteStudent(cin:String):[Student]
+}
+
+schema {
+query:Query
+mutation:Mutation
+}
