@@ -1,0 +1,38 @@
+	type RendezVous
+	{
+	    id:Int
+		date:String
+		heure:String
+		logement:Logement
+		numTel:String
+	}
+	
+	type Logement{
+	    reference:Int
+		adresse:String
+	    gouvernorat:String
+		type:Type
+		 description:String
+		 prix:Float
+	}
+	enum Type {Studio Appartement Villa EtageVilla} 
+	
+	type Query
+	{ 
+	getRdv:[RendezVous]
+	getRdvById(id:Int):RendezVous
+	getlogement:[Logement]
+	getLgmById(reference:Int):Logement
+	}
+	
+	type Mutation {
+	addRdv(id:Int,date:String,heure:String,numTel:String):RendezVous
+	updateRdv(id:Int,date:String,heure:String,numTel:String):RendezVous
+	deleteRdv(id:Int):[RendezVous]
+	
+	addLgm(reference:Int,adresse:String,gouvernorat:String,description:String,prix:Float):Logement
+	}
+	schema {
+	query:Query
+	mutation:Mutation
+	}
